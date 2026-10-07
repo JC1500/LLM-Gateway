@@ -1,5 +1,5 @@
 import express from "express";
-
+import {env} from "./config/schema.js";
 
 const app=express();
 
