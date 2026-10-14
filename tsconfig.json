@@ -5,5 +5,5 @@
     "module": "NodeNext",
     "allowJs": true
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "server.ts"]
 }
