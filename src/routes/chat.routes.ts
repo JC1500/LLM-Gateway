@@ -2,7 +2,7 @@
 import { Router } from "express";
 import { validate } from "../middleware/validate";
 import { ChatSchema, Chats } from "../schemas/chat.schema";
-import {OpenRouterProvider} from '../providers/openrouter.provider.js'
+import { Call_model } from "../services/gateway.service";
 
 const chatrouter=Router();
 
@@ -10,8 +10,7 @@ chatrouter.post(
   "/chat",
   validate(ChatSchema),
   async (req, res) => {
-    const openrouter=new OpenRouterProvider();
-    const data=await openrouter.chat(req.body);
+    const data=Call_model(req.body);
     res.json({
       result:data
     });
