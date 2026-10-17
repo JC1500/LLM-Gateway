@@ -9,6 +9,7 @@ import chatrouter from "./routes/chat.routes.js";
 
 const app = express();
 
+app.use(requestIDMiddleware);  // should be kept first such that every reques has a logID
 app.use(helmet());
 app.use(
     express.json({
@@ -21,7 +22,6 @@ app.use(
         limit: "1mb",
     }),
 );
-app.use(requestIDMiddleware);
 app.use(
     pinoHttp({
         logger,
@@ -35,6 +35,7 @@ app.get("/healthz", (req, res) => {
     });
 });
 
+app.use('/chat',chatrouter);
 app.use(errorhandler);
 
 export default app;
