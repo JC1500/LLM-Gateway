@@ -10,7 +10,7 @@ chatrouter.post(
   "/chat",
   validate(ChatSchema),
   async (req, res) => {
-    const data=Call_model(req.body);
+    const data=await Call_model(req.body);
     res.json({
       result:data
     });

@@ -3,7 +3,7 @@ import { LLMProvider } from '../providers/types';
 import { Chats } from '../schemas/chat.schema';
 
 
-export function Call_model(request:Chats){
+export async function Call_model(request:Chats){
     const provider: LLMProvider=providerRegistry[request.providers as keyof typeof providerRegistry];
-    return provider.chat(request);
+    return await provider.chat(request);
 }
