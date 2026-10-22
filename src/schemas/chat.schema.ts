@@ -10,12 +10,8 @@ export const ChatSchema = z.object({
     model: z.string().min(1),
     temperature: z.number().min(0.0).max(1.0).default(0),
     maxTokens: z.number().int().positive().optional(),
-    maxtokens: z.number().int().positive().optional(),
-}).transform((value) => ({
-    ...value,
-    maxTokens: value.maxTokens ?? value.maxtokens,
-}));
+    maxtokens: z.number().int().positive().optional()
+})
 
-export type Chats = z.infer<typeof ChatSchema> & {
-    maxTokens?: number;
-};
+export type Chats = z.infer<typeof ChatSchema>;
+export type Messages = z.infer<typeof MessageSchema>;
