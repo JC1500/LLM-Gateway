@@ -1,21 +1,18 @@
-
 import { Router } from "express";
-import { validate } from "../middleware/validate";
-import { ChatSchema, Chats } from "../schemas/chat.schema";
-import { Call_model } from "../services/gateway.service";
+import { validate } from "../middleware/validate.js";
+import { ChatSchema } from "../schemas/chat.schema.js";
+import { CallModel } from "../services/gateway.service.js";
 
-const chatrouter=Router();
+const chatrouter = Router();
 
-chatrouter.post(
-  "/chat",
-  validate(ChatSchema),
-  async (req, res) => {
-    const data=await Call_model(req.body);
-    res.json({
-      result:data
-    });
-  }
-);
+const handleChat=async (req: any, res: any) => {
+  const data=await CallModel(req.body);
+  return res.json({
+    success:true,
+    result: data,
+  });
+};
 
+chatrouter.post("/chat", validate(ChatSchema), handleChat);
 
 export default chatrouter;

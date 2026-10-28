@@ -33,3 +33,11 @@ export class ProviderError extends AppError {
         this.name="ProviderError";
     }
 }
+
+export class ModelNotFoundError extends AppError {
+
+  constructor(model: string) {
+    super(`Model '${model}' was not found or is unavailable`,404);
+    this.name = "ModelNotFoundError";
+  }
+}

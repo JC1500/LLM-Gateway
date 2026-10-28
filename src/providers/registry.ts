@@ -1,7 +1,9 @@
 import { OpenRouterProvider } from "./openrouter.provider.js";
+import { GeminiProvider } from "./gemini.provider.js";
 
 export const providerRegistry = {
-  openrouter: new OpenRouterProvider(),
-//   hugging-face: // add here,
-//   anthropic: //add here,
+  OpenRouter: new OpenRouterProvider(),
+  Gemini: new GeminiProvider(),
+  // hugging-face:,
+  // anthropic:,
 };

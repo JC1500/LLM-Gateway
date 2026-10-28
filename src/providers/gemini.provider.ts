@@ -4,7 +4,7 @@ import { AuthError, BadRequestError, ProviderError, RateLimitError } from "../li
 import { logger } from "../lib/logger.js";
 import { Chats } from "../schemas/chat.schema.js";
 import { ChatResponse, LLMProvider } from "./types.js";
-import { z, ZodInstanceOf } from "zod";
+import { z} from "zod";
 
 const GeminiSuccessSchema = z.object({
   responseId: z.string().min(1),
@@ -22,7 +22,7 @@ const GeminiSuccessSchema = z.object({
 });
 
 export class GeminiProvider implements LLMProvider {
-  async chat(request: Chats): Promise<ChatResponse> {
+  async chat(request:Chats,model:string): Promise<ChatResponse> {
     const startedAt = performance.now();
     let outcome: "success" | "error" = "error";
     let tokens = 0;
@@ -61,11 +61,11 @@ export class GeminiProvider implements LLMProvider {
       let response;
       try {
         response = await ai.models.generateContent({
-          model: request.model,
+          model: model,
           contents,
           config,
         });
-      } catch (error) {
+      } catch (error: unknown) {
         if (error instanceof ApiError) {
           if (error.status === 400) throw new BadRequestError(error.message, 400);
           if (error.status === 401 || error.status === 403) {
@@ -78,7 +78,7 @@ export class GeminiProvider implements LLMProvider {
         if (abortSignal.aborted) {
           throw new ProviderError("Provider took too much time to respond");
         }
-        throw new ProviderError(error.message);
+        throw new ProviderError(error instanceof Error?error.message:String(error));
       }
 
       const parsed = GeminiSuccessSchema.safeParse(response);

@@ -3,7 +3,11 @@
     "strict": true,
     "target": "ES2022",
     "module": "NodeNext",
-    "allowJs": true
+    "moduleResolution": "NodeNext",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "outDir":"dist"
   },
   "include": ["**/*.ts", "server.ts"]
 }

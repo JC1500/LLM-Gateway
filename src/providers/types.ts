@@ -16,5 +16,5 @@ export class ChatResponse{
 }
 
 export interface LLMProvider {
-    chat(request: Chats): Promise<ChatResponse>;
+    chat(request: Chats,model:string): Promise<ChatResponse>;
 }
