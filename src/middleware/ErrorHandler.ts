@@ -16,7 +16,7 @@ export function errorhandler(err:Error,req:Request,res:Response,next:NextFunctio
         success:false,
         requestID:req.requestId,
         error:{
-            message:"Internal Server Error"
+            message:err.message
         }
     });
 }

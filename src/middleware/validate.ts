@@ -6,18 +6,18 @@ export const validate = <T>(schema: z.ZodType<T>) => (
     res: Response,
     next: NextFunction,
 ) => {
-    const result = schema.safeParse(req.body ?? {});
+    const result = schema.safeParse(req.body??{});
 
     if (!result.success) {
         return res.status(400).json({
             success: false,
             requestID: req.requestId,
-            error: {
+            error:{
                 message: result.error.issues.map((issue) => issue.message).join(", "),
             },
         });
     }
 
-    req.body = result.data;
+    req.body=result.data;
     next();
 };
