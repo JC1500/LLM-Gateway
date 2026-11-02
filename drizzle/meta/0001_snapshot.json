@@ -1,6 +1,6 @@
 {
-  "id": "5380e015-eaff-4d21-bde6-191752d12186",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "084842f6-fde6-4b09-8a2d-c2a2d244235f",
+  "prevId": "6b9c615a-3243-4920-9a26-3f9bd55daeea",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -39,6 +39,13 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "rate_limit_per_min": {
+          "name": "rate_limit_per_min",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 10
         },
         "revoked_at": {
           "name": "revoked_at",
