@@ -2,6 +2,7 @@ import { Router } from "express";
 import { validate } from "../middleware/validate.js";
 import { ChatSchema } from "../schemas/chat.schema.js";
 import { CallModel } from "../services/gateway.service.js";
+import { rateLimitMiddleware } from "../middleware/ratelimit.js";
 import { authMiddleware } from "../middleware/auth.js";
 
 const chatrouter = Router();
@@ -14,6 +15,6 @@ const handleChat=async (req: any, res: any) => {
   });
 };
 
-chatrouter.post("/chat", [authMiddleware, validate(ChatSchema)], handleChat);
+chatrouter.post("/chat", [authMiddleware, rateLimitMiddleware,validate(ChatSchema)], handleChat);
 
 export default chatrouter;

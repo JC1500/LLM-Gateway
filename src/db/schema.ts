@@ -81,7 +81,7 @@ export const apiKeys = pgTable(
     })
       .notNull()
       .defaultNow(),
-    rateLimitperMin:integer("rate_limit_per_min").default(10),
+    rateLimitperMin:integer("rate_limit_per_min").default(10).notNull(),
     revokedAt: timestamp("revoked_at", {
       withTimezone: true,
     }),
@@ -101,9 +101,9 @@ export const requests = pgTable(
       .defaultRandom(),
 
     apiKeyId: uuid("api_key_id").notNull(),
-    modelId: text("model_id").notNull(),
+    modelId: text("model_id"),
 
-    provider: text("provider").notNull(),
+    provider: text("provider"),
 
     promptTokens: integer("prompt_tokens").notNull().default(0),
     completionTokens: integer("completion_tokens").notNull().default(0),
@@ -115,7 +115,7 @@ export const requests = pgTable(
       .notNull()
       .default(sql`0`),
 
-    latencyMs: integer("latency_ms").notNull(),
+    latencyMs: integer("latency_ms").notNull().default(0),
     status: text("status").notNull(),
     errorType: text("error_type"),
 

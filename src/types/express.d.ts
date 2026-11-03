@@ -5,6 +5,8 @@ declare global{
     interface Request{
       requestId: string;
       logger: pino.Logger;
+      rateLimit:number;
+      apiKeyId:string;
     }
   }
 }

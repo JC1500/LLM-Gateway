@@ -26,5 +26,7 @@ export async function authMiddleware(req:Request,res:Response,next:NextFunction)
         })
     }
     req.log = req.log.child({ apiKeyId: result.id });
+    req.apiKeyId=result.id;
+    req.rateLimit=result.rateLimit;
     next();
 }
