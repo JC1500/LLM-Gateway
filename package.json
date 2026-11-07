@@ -40,7 +40,8 @@
     "start": "npx tsx server.ts",
     "test:watch": "vitest",
     "db:generate": "drizzle-kit generate --config=src/config/drizzle.config.ts",
-    "migrate": "drizzle-kit migrate --config=src/config/drizzle.config.ts"
+    "migrate": "drizzle-kit migrate --config=src/config/drizzle.config.ts",
+    "introspect": "drizzle-kit introspect --config=src/config/drizzle.config.ts"
   },
   "repository": {
     "type": "git",
