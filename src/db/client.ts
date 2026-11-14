@@ -11,4 +11,4 @@ export const pool = new pg.Pool({
   keepAliveInitialDelayMillis: 10_000,
 });
 
-export const db = drizzle(pool);
+export const db = drizzle(pool,{logger: true});
