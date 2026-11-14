@@ -11,12 +11,6 @@ import { redis } from "./cache/redis.js";
 const app = express();
 
 app.use(requestIDMiddleware);
-app.use(
-  pinoHttp({
-    logger,
-    genReqId: (req) => req.requestId,
-  }),
-);
 app.use(helmet());
 app.use(
   express.json({

@@ -6,7 +6,9 @@ export const pool = new pg.Pool({
   connectionString: env.DATABASE_URL,
   max:10,
   idleTimeoutMillis: 30_000,
-  connectionTimeoutMillis: 15_000,
+  connectionTimeoutMillis: 20_000,
+  keepAlive: true,
+  keepAliveInitialDelayMillis: 10_000,
 });
 
 export const db = drizzle(pool);

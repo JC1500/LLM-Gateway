@@ -1,4 +1,4 @@
-import { CatalogModel,getModelById } from "../services/catalog.service.js";
+import { getModelById } from "../services/catalog.service.js";
 import type { Chats } from "../schemas/chat.schema.js";
 import { ModelNotFoundError } from "../lib/errors.js";
 export type RoutingTarget = {
@@ -7,10 +7,7 @@ export type RoutingTarget = {
   upstreamModel: string;
 };
 
-export async function resolveModel(
-  request: Chats,
-  catalog: readonly CatalogModel[],
-): Promise<RoutingTarget> {
+export async function resolveModel(request: Chats,):Promise<RoutingTarget> {
   const model=await getModelById(request.model);
   if(!model) throw new ModelNotFoundError(request.model);
   return {

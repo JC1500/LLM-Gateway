@@ -53,11 +53,12 @@ export async function rateLimitMiddleware(req:Request,res:Response,next:NextFunc
             errorType: "rate_limit_exceeded",
             });
         }catch (error){
-            logger.error(
-            { err: error, apiKeyId },
+            req.logger.error(
+            { err: error },
             "Failed to log rate-limited request"
             );
         }
+        req.logger.info("Rate Limit Reached")
         return res.status(429).json({
             success:false,
             error:{
@@ -67,7 +68,7 @@ export async function rateLimitMiddleware(req:Request,res:Response,next:NextFunc
 
     }
     }catch(error){
-         logger.warn({err:error, apiKeyId },
+        req.logger.warn({error:error},
       "Redis unavailable. Skipping rate limiting.");
     res.setHeader("X-RateLimit-Limit", limit);
     res.setHeader("X-RateLimit-Remaining", "unknown");
