@@ -12,6 +12,7 @@ import {
   foreignKey,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
+import { string } from "zod";
 
 export type PricingTier = {
   min_prompt_tokens: number;
@@ -75,13 +76,12 @@ export const apiKeys = pgTable(
     name: text("name").notNull(),
     keyHash: text("key_hash").notNull().unique(),
     keyPrefix: text("key_prefix").notNull(),
-
     createdAt: timestamp("created_at", {
       withTimezone: true,
     })
       .notNull()
       .defaultNow(),
-
+    rateLimitperMin:integer("rate_limit_per_min").default(10).notNull(),
     revokedAt: timestamp("revoked_at", {
       withTimezone: true,
     }),
@@ -101,9 +101,9 @@ export const requests = pgTable(
       .defaultRandom(),
 
     apiKeyId: uuid("api_key_id").notNull(),
-    modelId: text("model_id").notNull(),
+    modelId: text("model_id"),
 
-    provider: text("provider").notNull(),
+    provider: text("provider"),
 
     promptTokens: integer("prompt_tokens").notNull().default(0),
     completionTokens: integer("completion_tokens").notNull().default(0),
@@ -115,7 +115,7 @@ export const requests = pgTable(
       .notNull()
       .default(sql`0`),
 
-    latencyMs: integer("latency_ms").notNull(),
+    latencyMs: integer("latency_ms").notNull().default(0),
     status: text("status").notNull(),
     errorType: text("error_type"),
 

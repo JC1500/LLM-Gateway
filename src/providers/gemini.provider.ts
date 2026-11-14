@@ -3,7 +3,8 @@ import { env } from "../config/env.schema.js";
 import { AuthError, BadRequestError, ProviderError, RateLimitError } from "../lib/errors.js";
 import { logger } from "../lib/logger.js";
 import { Chats } from "../schemas/chat.schema.js";
-import { ChatResponse, LLMProvider } from "./types.js";
+import { ChatResponse } from "../schemas/chat.schema.js";
+import { LLMProvider } from "./types.js";
 import { z} from "zod";
 
 const GeminiSuccessSchema = z.object({
@@ -54,7 +55,7 @@ export class GeminiProvider implements LLMProvider {
         abortSignal,
         temperature: request.temperature,
       };
-      const maxTokens = request.maxTokens ?? request.maxtokens;
+      const maxTokens = request.maxTokens;
       if (maxTokens !== undefined) config.maxOutputTokens = maxTokens;
       if (systemMessages.length > 0) config.systemInstruction = systemMessages.join("\n\n");
 

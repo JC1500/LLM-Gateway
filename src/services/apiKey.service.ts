@@ -31,5 +31,6 @@ export async function verifyKey(key:string) {
     return {
         id:result[0].id,
         allowedModels:result[0].allowedModels,
+        rateLimit:result[0].rateLimitperMin,
     }
 }

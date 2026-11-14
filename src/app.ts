@@ -7,15 +7,10 @@ import { logger } from "./lib/logger.js";
 import authrouter from "./routes/auth.routes.js";
 import chatrouter from "./routes/chat.routes.js";
 import modelsrouter from './routes/models.routes.js';
+import { redis } from "./cache/redis.js";
 const app = express();
 
 app.use(requestIDMiddleware);
-app.use(
-  pinoHttp({
-    logger,
-    genReqId: (req) => req.requestId,
-  }),
-);
 app.use(helmet());
 app.use(
   express.json({
@@ -29,9 +24,19 @@ app.use(
   }),
 );
 
-app.get("/healthz", (req, res) => {
+app.get("/health", async (req, res) => {
+  let redisStautus=true;
+  try{
+    await redis.ping();
+  }catch(error){
+    redisStautus=false;
+    logger.warn("Redis not Connected")
+  }
   return res.status(200).json({
     message: "All Good",
+    services:{
+      redis:redisStautus? "Connectedd":"Not Connected",
+    },
   });
 });
 app.use(authrouter);

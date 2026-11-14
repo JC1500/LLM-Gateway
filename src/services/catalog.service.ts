@@ -2,7 +2,6 @@ import { eq } from "drizzle-orm";
 import { db } from "../db/client.js";
 import { models } from "../db/schema.js";
 import {z} from 'zod';
-import { bigint, } from "drizzle-orm/pg-core";
 export type CatalogModel = typeof models.$inferSelect;
 
 const CACHE_TTL_MS = 3600_000;

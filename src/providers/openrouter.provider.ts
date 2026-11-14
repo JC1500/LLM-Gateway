@@ -1,5 +1,6 @@
 import { env } from "../config/env.schema.js";
-import { ChatResponse, type LLMProvider } from "./types.js";
+import { type LLMProvider } from "./types.js";
+import { ChatResponse } from "../schemas/chat.schema.js";
 import type { Chats } from "../schemas/chat.schema.js";
 import {
   AuthError,
@@ -39,7 +40,7 @@ const OpenRouterErrorSchema = z.object({
     .optional(),
 });
 
-export class OpenRouterProvider {
+export class OpenRouterProvider implements LLMProvider{
   async chat(request: Chats, model: string){
     const startedAt = performance.now();
     let outcome: "success" | "error" = "error";

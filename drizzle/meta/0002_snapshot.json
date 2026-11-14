@@ -1,6 +1,6 @@
 {
-  "id": "5380e015-eaff-4d21-bde6-191752d12186",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "d912ea47-3185-4d59-a4fc-e54607de7315",
+  "prevId": "084842f6-fde6-4b09-8a2d-c2a2d244235f",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -39,6 +39,13 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "rate_limit_per_min": {
+          "name": "rate_limit_per_min",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 10
         },
         "revoked_at": {
           "name": "revoked_at",
@@ -220,13 +227,13 @@
           "name": "model_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "provider": {
           "name": "provider",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "prompt_tokens": {
           "name": "prompt_tokens",
@@ -260,7 +267,8 @@
           "name": "latency_ms",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": 0
         },
         "status": {
           "name": "status",

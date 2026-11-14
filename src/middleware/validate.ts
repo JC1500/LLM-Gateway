@@ -9,6 +9,7 @@ export const validate = <T>(schema: z.ZodType<T>) => (
     const result = schema.safeParse(req.body??{});
 
     if (!result.success) {
+        req.logger.info({error:result.error},"Data is not is correct format");
         return res.status(400).json({
             success: false,
             requestID: req.requestId,
@@ -17,7 +18,7 @@ export const validate = <T>(schema: z.ZodType<T>) => (
             },
         });
     }
-
+    
     req.body=result.data;
     next();
 };
